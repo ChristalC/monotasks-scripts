@@ -263,12 +263,12 @@ class Analyzer:
             ideal_cpu_s, ideal_network_s, ideal_disk_s = (
               stage.get_ideal_times_from_metrics_fix_executors(
                 metrics.AWS_M24XLARGE_MAX_NETWORK_GIGABITS_PER_S,
-                num_cores_per_executor = 8))
+                num_cores_per_executor = 2))
           else:
             ideal_cpu_s, ideal_network_s, ideal_disk_s = (
             stage.get_ideal_times_from_metrics(
               metrics.AWS_M24XLARGE_MAX_NETWORK_GIGABITS_PER_S,
-              num_cores_per_executor = 8))
+              num_cores_per_executor = 2))
 
           ideal_ser_deser_time_s = stage.get_ideal_ser_deser_time_s()
 

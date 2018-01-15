@@ -218,7 +218,7 @@ def __add_jct_results(data_file, event_log, query_name, num_warmup_trials, x_coo
     for _, job in sorted(analyzer.jobs.iteritems()):
       job_runtime = job.runtime()
       for s_id, stage in job.stages.iteritems():
-        (cpu, network, disk) = stage.get_ideal_times_from_metrics()
+        (cpu, network, disk) = stage.get_ideal_times_from_metrics(10)
         ser = stage.get_ideal_ser_deser_time_s()
         if ser > 0:
           disk_read = stage.get_disk_read_time_s()

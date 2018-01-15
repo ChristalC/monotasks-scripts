@@ -111,6 +111,8 @@ class Stage:
     return sum([t.remote_mb_read for t in self.tasks if t.has_fetch])
 
   def add_event(self, data):
+    if not "Task Metrics" in data:
+      return
     task = Task(data)
 
     if self.start_time == -1:
@@ -126,7 +128,7 @@ class Stage:
       num_cores_per_executor)
     return max(ideal_times)
 
-  def get_ideal_ser_deser_time_s(self, num_cores_per_executor = 8):
+  def get_ideal_ser_deser_time_s(self, num_cores_per_executor = 2):
     num_executors = len(self.get_executor_id_to_tasks())
     total_ser_time_millis = sum([t.hdfs_ser_comp_millis for t in self.tasks])
     total_deser_time_millis = sum([t.hdfs_deser_decomp_millis for t in self.tasks])
@@ -148,7 +150,7 @@ class Stage:
   def get_ideal_times_from_metrics(
       self,
       network_throughput_gigabits_per_executor,
-      num_cores_per_executor = 8,
+      num_cores_per_executor = 2,
       use_disk_monotask_times = False):
     """Returns a 3-tuple containing the ideal CPU, network, and disk times (s) for this stage.
 
@@ -197,8 +199,8 @@ class Stage:
       # about whether the shuffle data was in-memory or on-disk.
       if total_disk_throughput_Bps > 0:
          # Hardcode: this is roughly the ec2 disk throughput.
-        ideal_disk_s = float(total_disk_bytes_read_written) /
-          (metrics.AWS_DISK_BYTES_PER_SECOND * num_executors * len(disks)) #total_disk_throughput_Bps
+        ideal_disk_s = (float(total_disk_bytes_read_written) /
+          (metrics.AWS_DISK_BYTES_PER_SECOND * num_executors * len(disks))) #total_disk_throughput_Bps
       else:
         ideal_disk_s = 0
         if total_disk_bytes_read_written > 0:
@@ -210,7 +212,7 @@ class Stage:
   def get_ideal_times_from_metrics_fix_executors(
       self,
       network_throughput_gigabits_per_executor,
-      num_cores_per_executor = 8,
+      num_cores_per_executor = 2,
       use_disk_monotask_times = False):
     """Returns a 3-tuple containing the ideal CPU, network, and disk time(s) for this stage.
 

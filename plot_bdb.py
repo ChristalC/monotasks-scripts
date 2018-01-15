@@ -177,7 +177,9 @@ def __generate_graphs(queries, args):
        open(spark_data_filepath, "w") as spark_data_file:
     i = 0
     for (query_name, (monotasks_event_log, spark_event_log)) in sorted_queries:
+      print monotasks_event_log
       __add_jct_results(monotasks_data_file, monotasks_event_log, query_name, num_warmup_trials, i)
+      print spark_event_log
       __add_jct_results(spark_data_file, spark_event_log, query_name, num_warmup_trials, i)
       i += 1
 

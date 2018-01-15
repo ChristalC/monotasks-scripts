@@ -6,7 +6,7 @@ import plot_matplotlib
 BYTES_PER_GIGABYTE = float(1024 * 1024 * 1024)
 BYTES_PER_KILOBYTE = 1024 * 1024
 BYTES_PER_GIGABIT = BYTES_PER_GIGABYTE / 8
-CORES = 8.0
+CORES = 2.0
 
 class DiskUtilization:
   """ Represents the utilization of one disk at one point in time. """

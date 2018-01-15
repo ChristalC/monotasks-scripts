@@ -201,7 +201,7 @@ class ExecutorResourceMetrics(object):
     cpu_metrics = CpuMetrics(
       elapsed_millis=elapsed_millis,
       cpu_millis=cpu_millis,
-      num_cores=8,
+      num_cores=2,
       hdfs_deser_decomp_millis=sum([t.hdfs_deser_decomp_millis for t in tasks]),
       hdfs_ser_comp_millis=sum([t.hdfs_ser_comp_millis for t in tasks])
     )

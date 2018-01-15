@@ -17,7 +17,9 @@ class Task:
     self.logger = logging.getLogger("Task")
 
     task_info = json_data["Task Info"]
-    task_metrics = json_data["Task Metrics"]
+    task_metrics = {}
+    if "Task Metrics" in json_data:
+      task_metrics = json_data["Task Metrics"]
     self.task_id = task_info["Task ID"]
 
     # Times for monotasks.
